@@ -1,86 +1,163 @@
 import React from "react";
-import ClientProvider from "@/components/ClientProvider";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Github, Linkedin, Mail, FileText } from "lucide-react";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
-export const dynamic = "force-dynamic";
-
-async function getSession() {
-  try {
-    const session = await getServerSession(authOptions);
-    return session;
-  } catch (error) {
-    console.error("Failed to get session:", error);
-    return null;
-  }
-}
-
-export default async function Page() {
-  const session = await getSession();
-
+export default function HomePage() {
   return (
-    <div className="min-h-screen flex flex-col relative">
-      {/* {session && <NavigationBar />} */}
-
-      <main className="flex-1 flex flex-col w-full mx-auto">
-        <ClientProvider>
-          <div className="flex-1 flex items-start justify-center  bg-gradient-to-b from-white to-neutral-50 dark:from-neutral-900 dark:to-neutral-950">
-            {session ? (
-              // Authenticated View
-              <section className="max-w-7xl w-full space-y-8 animate-fade-in">
-                <h1> Welcome {session.user?.name}</h1>
-              </section>
-            ) : (
-              // Marketing View
-              <section className="max-w-7xl w-full space-y-8 animate-fade-in">
-                <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
-                  <h1 className="text-4xl font-bold mt-10">
-                    Welcome - Click the button below to get started
-                  </h1>
-                  <Link
-                    href="/auth/signin"
-                    className="group w-full sm:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-lg px-8 py-4 text-lg font-medium shadow-lg shadow-blue-500/20 transition-all duration-200 hover:shadow-xl hover:shadow-blue-500/30"
-                  >
-                    Get Started
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </Link>
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section className="relative py-20 sm:py-32 lg:py-40 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900" />
+          <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
+          
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center">
+              {/* Profile Section */}
+              <div className="mb-8">
+                <div className="w-32 h-32 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-400 to-indigo-600 p-1">
+                  <div className="w-full h-full bg-white dark:bg-slate-900 rounded-full flex items-center justify-center">
+                    <span className="text-4xl font-bold bg-gradient-to-br from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                      AH
+                    </span>
+                  </div>
                 </div>
-              </section>
-            )}
+                <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white mb-6">
+                  <span className="block">Hi, I'm</span>
+                  <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                    Ali Hamza
+                  </span>
+                </h1>
+                <p className="text-xl sm:text-2xl text-slate-600 dark:text-slate-300 mb-4 max-w-3xl mx-auto">
+                  Computer Science Student at NUST
+                </p>
+                <p className="text-lg sm:text-xl text-slate-500 dark:text-slate-400 mb-8 max-w-2xl mx-auto leading-relaxed">
+                  Building with code, dreaming in algorithms. Passionate about AI development and creating intelligent software systems.
+                </p>
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+                <Link
+                  href="/contact"
+                  className="group inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-4 rounded-lg font-medium text-lg shadow-lg shadow-blue-500/20 hover:shadow-xl hover:shadow-blue-500/30 transition-all"
+                >
+                  Get In Touch
+                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+                <Link
+                  href="/projects"
+                  className="inline-flex items-center gap-2 border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:border-blue-500 dark:hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 px-8 py-4 rounded-lg font-medium text-lg transition-all"
+                >
+                  View Projects
+                </Link>
+              </div>
+
+              {/* Social Links */}
+              <div className="flex justify-center space-x-6">
+                <a
+                  href="https://github.com/alihamza"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-slate-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+                  aria-label="GitHub"
+                >
+                  <Github className="h-6 w-6" />
+                </a>
+                <a
+                  href="https://linkedin.com/in/alihamza"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin className="h-6 w-6" />
+                </a>
+                <a
+                  href="mailto:ali.hamza@example.com"
+                  className="text-slate-500 dark:text-slate-400 hover:text-red-500 dark:hover:text-red-400 transition-colors"
+                  aria-label="Email"
+                >
+                  <Mail className="h-6 w-6" />
+                </a>
+                <a
+                  href="/resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-slate-500 dark:text-slate-400 hover:text-green-600 dark:hover:text-green-400 transition-colors"
+                  aria-label="Resume"
+                >
+                  <FileText className="h-6 w-6" />
+                </a>
+              </div>
+            </div>
           </div>
-        </ClientProvider>
+        </section>
+
+        {/* Quick About Section */}
+        <section className="py-20 bg-white dark:bg-slate-900/50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+                About Me
+              </h2>
+              <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
+                I'm a third-year Computer Science student at the National University of Sciences and Technology (NUST), 
+                with a deep passion for artificial intelligence and software engineering. I love building innovative 
+                solutions and exploring the intersection of technology and human potential.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="text-center p-6 rounded-lg bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-700">
+                <div className="w-12 h-12 mx-auto mb-4 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                  <span className="text-blue-600 dark:text-blue-400 text-xl">🤖</span>
+                </div>
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">AI Development</h3>
+                <p className="text-slate-600 dark:text-slate-400 text-sm">
+                  Exploring machine learning, deep learning, and intelligent systems
+                </p>
+              </div>
+              
+              <div className="text-center p-6 rounded-lg bg-gradient-to-br from-purple-50 to-pink-50 dark:from-slate-800 dark:to-slate-700">
+                <div className="w-12 h-12 mx-auto mb-4 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+                  <span className="text-purple-600 dark:text-purple-400 text-xl">💻</span>
+                </div>
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">Software Engineering</h3>
+                <p className="text-slate-600 dark:text-slate-400 text-sm">
+                  Building scalable applications with modern technologies
+                </p>
+              </div>
+              
+              <div className="text-center p-6 rounded-lg bg-gradient-to-br from-green-50 to-teal-50 dark:from-slate-800 dark:to-slate-700">
+                <div className="w-12 h-12 mx-auto mb-4 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                  <span className="text-green-600 dark:text-green-400 text-xl">🎓</span>
+                </div>
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">Continuous Learning</h3>
+                <p className="text-slate-600 dark:text-slate-400 text-sm">
+                  Always exploring new technologies and expanding my skillset
+                </p>
+              </div>
+            </div>
+            
+            <div className="text-center mt-12">
+              <Link
+                href="/about"
+                className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors"
+              >
+                Learn more about me
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <span className="text-sm text-neutral-600 dark:text-neutral-400">
-            © {new Date().getFullYear()} All Rights Reserved
-          </span>
-          <div className="flex items-center gap-6 text-sm text-neutral-600 dark:text-neutral-400">
-            <Link
-              href="/privacy"
-              className="hover:text-blue-600 dark:hover:text-blue-400"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="/terms"
-              className="hover:text-blue-600 dark:hover:text-blue-400"
-            >
-              Terms of Service
-            </Link>
-            <Link
-              href="/contact"
-              className="hover:text-blue-600 dark:hover:text-blue-400"
-            >
-              Contact
-            </Link>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
